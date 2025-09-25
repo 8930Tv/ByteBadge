@@ -1,3 +1,55 @@
-<title>ByteBadge</title>
-<br>
-<p>ByteBadge is an app that makes people badges. All you have to do is add a name, the reasson you get the badge, and light or dark mode.</p>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>ByteBadge</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+    }
+    canvas {
+      display: block;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+<p>ByteBadge is a website that makes badges for devs. It's free, customizable, and you could put it anywhere you want!</p>
+  <h2>Add Your Text to the Image</h2>
+  
+  <input type="text" id="userText" placeholder="Enter your text here" style="width: 300px;">
+  <button onclick="drawText()">Apply Text</button>
+  <button onclick="downloadImage()">Download Image</button>
+
+  <br>
+  <canvas id="canvas" width="600" height="400"></canvas>
+
+  <script>
+    const canvas = document.getElementById('canvas');
+    const ctx = canvas.getContext('2d');
+
+    const baseImage = new Image();
+    baseImage.src = 'https://via.placeholder.com/600x400.png?text=Background+Image'; // Replace with your own image URL
+    baseImage.onload = function () {
+      ctx.drawImage(baseImage, 0, 0, canvas.width, canvas.height);
+    };
+
+    function drawText() {
+      const text = document.getElementById('userText').value;
+      ctx.drawImage(baseImage, 0, 0, canvas.width, canvas.height); // Clear previous text
+      ctx.font = '30px Arial';
+      ctx.fillStyle = 'white';
+      ctx.fillText(text, 50, 50); // You can change the position
+    }
+
+    function downloadImage() {
+      const link = document.createElement('a');
+      link.download = 'custom-image.png';
+      link.href = canvas.toDataURL();
+      link.click();
+    }
+  </script>
+
+</body>
+</html>
